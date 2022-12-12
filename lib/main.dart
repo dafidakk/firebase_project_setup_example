@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_project_setup_example/pages/event_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -25,12 +26,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     testData();
     return MaterialApp(
-      title: 'Events',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: const FireBasePage(title: 'Firebase Demo Home Page'),
-    );
+        title: 'Events',
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+        ),
+        home: EventScreen());
   }
 }
 
