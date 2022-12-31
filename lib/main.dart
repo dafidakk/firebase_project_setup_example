@@ -1,13 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_project_setup_example/pages/event_page.dart';
+import 'package:firebase_project_setup_example/pages/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    // DeviceOrientation.landscapeLeft,
+    // DeviceOrientation.landscapeRight,
+  ]).then((value) => runApp(SplashPage(
+        key: UniqueKey(),
+        onInitializationComplete: (() => runApp(
+              ProviderScope(
+                child: MyApp(),
+              ),
+            )),
+      )));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,24 +41,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     testData();
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Events',
         theme: ThemeData(
-          primarySwatch: Colors.amber,
+          primarySwatch: Colors.purple,
         ),
         home: EventScreen());
-  }
-}
-
-class FireBasePage extends StatefulWidget {
-  final String title;
-  const FireBasePage({super.key, required this.title});
-  @override
-  State<FireBasePage> createState() => _FireBasePageState();
-}
-
-class _FireBasePageState extends State<FireBasePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }
